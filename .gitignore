@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+flappy_env/
+*.pth
+checkpoints/
+.claude/
