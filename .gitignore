@@ -4,3 +4,4 @@ flappy_env/
 *.pth
 checkpoints/
 .claude/
+CLAUDE.md
