@@ -5,6 +5,12 @@ W = 500
 H = 600
 GROUND_Y = 550
 
+# neuroevolution
+POP_SIZE = 50
+ELITE_COUNT = 5
+MUTATION_RATE = 0.2
+MUTATION_STR = 0.5     # tried lower values but population converged too slowly
+
 # DQN
 MEMORY_SIZE = 50_000
 LEARNING_RATE = 1e-3

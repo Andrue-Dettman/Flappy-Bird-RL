@@ -1,10 +1,10 @@
 import torch, torch.nn as nn, numpy as np, copy
+import config
 
-POP_SIZE = 50
-ELITES = 5
-MUTATE_RATE = 0.2
-MUTATE_STR = 0.5
-# tried 0.3 strength at first and it was too aggressive, kept losing good behaviors
+POP_SIZE = config.POP_SIZE
+ELITES = config.ELITE_COUNT
+MUTATE_RATE = config.MUTATION_RATE
+MUTATE_STR = config.MUTATION_STR
 
 
 class Brain(nn.Module):

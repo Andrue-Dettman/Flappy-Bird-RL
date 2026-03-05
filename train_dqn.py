@@ -1,4 +1,4 @@
-import os, sys, pygame
+import os, sys, argparse
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 os.makedirs("checkpoints", exist_ok=True)
@@ -7,11 +7,13 @@ from game import FlappyBird
 from models.dqn_agent import DQNAgent
 from logger import Logger
 
-EPISODES = 1000
+parser = argparse.ArgumentParser()
+parser.add_argument("--episodes", type=int, default=1000)
+args = parser.parse_args()
+EPISODES = args.episodes
 
 agent = DQNAgent()
 log = Logger("logs/dqn.csv", ["episode", "score", "reward", "epsilon", "loss"])
-clock = pygame.time.Clock()
 best_score = 0
 
 for ep in range(1, EPISODES + 1):

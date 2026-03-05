@@ -8,10 +8,7 @@ import config
 
 
 class BirdBrain(nn.Module):
-    """
-    Small feedforward net: 5 inputs (what the bird sees) -> 2 outputs (flap or don't).
-    Two hidden layers of 64 neurons each with ReLU activation.
-    """
+    # 5 inputs -> 128 -> 64 -> 2 outputs (Q values for flap / no-flap)
     def __init__(self, num_inputs=5, num_actions=2):
         super().__init__()
         self.layers = nn.Sequential(
@@ -61,7 +58,7 @@ class DQNAgent:
         self.target_net.load_state_dict(self.policy_net.state_dict())
 
         self.optimizer = optim.Adam(self.policy_net.parameters(), lr=config.LEARNING_RATE)
-        self.loss_fn = nn.SmoothL1Loss()  # Huber loss — robust to big outlier rewards (-10)
+        self.loss_fn = nn.SmoothL1Loss()  # Huber loss — less sensitive to outlier rewards than MSE
         self.memory = ReplayMemory()
 
         self.exploration_rate = config.EXPLORATION_START
