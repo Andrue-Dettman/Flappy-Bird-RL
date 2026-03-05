@@ -53,7 +53,7 @@ def test_flap_changes_velocity():
 def test_score_increments():
     # run a bunch of frames with no flap and see that pipes eventually pass
     game = FlappyBird(n=1, headless=True)
-    game.gap = 400  # huge gap so the bird doesn't die
+    game.gap = 300  # big gap so the bird doesn't die (max valid is ~390)
     game.speed = 5
     game.reset()
     for _ in range(500):
