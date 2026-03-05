@@ -47,11 +47,8 @@ class ReplayMemory:
 
 
 class DQNAgent:
-    """
-    Deep Q-Network agent. Maintains two copies of BirdBrain:
-      - policy_net:  actively trained every step
-      - target_net:  frozen copy, synced periodically for stable Q-targets
-    """
+    # two networks: policy_net trains every step, target_net is a frozen copy
+    # we sync every N steps to keep Q-value targets stable during training
     def __init__(self):
         self.policy_net = BirdBrain()
         self.target_net = BirdBrain()

@@ -6,7 +6,6 @@ usage: python plot_training.py
 import os
 import csv
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
 
 os.makedirs("output/figures", exist_ok=True)
 

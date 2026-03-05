@@ -82,4 +82,5 @@ for gen in range(1, args.generations + 1):
     print(f"gen {gen:>3} | score {game.score:>3} | best {best_ever:>3} | fit {game.fit[w]:.1f}")
 
 log.close()
-pygame.quit()
+if not args.headless:
+    pygame.quit()
