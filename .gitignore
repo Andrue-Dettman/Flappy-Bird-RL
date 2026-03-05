@@ -5,3 +5,6 @@ flappy_env/
 checkpoints/
 .claude/
 CLAUDE.md
+logs/*.csv
+output/figures/*.png
+output/demo.gif

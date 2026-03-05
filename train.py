@@ -5,6 +5,7 @@ os.makedirs("checkpoints", exist_ok=True)
 
 from game import FlappyBird
 from models import Population, POP_SIZE
+from logger import Logger
 
 # (min_score_to_unlock, pipe_gap, pipe_speed)
 # starts wide so the birds can actually survive long enough to learn,
@@ -24,6 +25,10 @@ stage = 0
 fps = 60
 gap, spd = 220, 2
 
+log = Logger("logs/neuroevo.csv", [
+    "gen", "score", "best_ever", "mean_fit", "gap", "speed", "stage"
+])
+
 for gen in range(1, 201):
     for i, (req, g, s) in enumerate(DIFFICULTY):
         if best_ever >= req and i > stage:
@@ -39,6 +44,7 @@ for gen in range(1, 201):
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pop.save("checkpoints/best_bird.pth", game.fit)
+                log.close()
                 pygame.quit(); sys.exit()
             if ev.type == pygame.KEYDOWN:
                 # arrow keys to speed up / slow down the sim
@@ -53,9 +59,20 @@ for gen in range(1, 201):
     if game.score > best_ever:
         best_ever = game.score
         pop.save("checkpoints/best_bird.pth", game.fit)
-        # print(f"  new best! saved")
+
+    mean_fit = sum(game.fit) / len(game.fit)
+    log.log({
+        "gen": gen,
+        "score": game.score,
+        "best_ever": best_ever,
+        "mean_fit": round(mean_fit, 2),
+        "gap": gap,
+        "speed": spd,
+        "stage": stage,
+    })
 
     w = pop.evolve(game.fit)
     print(f"gen {gen:>3} | score {game.score:>3} | best {best_ever:>3} | fit {game.fit[w]:.1f}")
 
+log.close()
 pygame.quit()
